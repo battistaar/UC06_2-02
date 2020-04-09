@@ -1,9 +1,12 @@
 const express = require('express');
 const fs = require('fs');
+const path = require('path');
 const app = express();
 
+app.use(express.static(path.join(__dirname,'public')));
+
 app.get('/', (req, res) => {
-    fs.readFile('index.html', {encoding: 'UTF-8'}, (err, content) => {
+    fs.readFile(path.join(__dirname, 'index.html'), {encoding: 'UTF-8'}, (err, content) => {
         if (err) {
             res.status(404);
             res.setHeader('Content-Type', 'text/plain');
