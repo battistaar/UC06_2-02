@@ -19,7 +19,6 @@ app.post('/add', (req, res, next) => {
             thumbnail: req.body.thumbnail
         }
     }
-    console.log(newBook, allBooks);
     allBooks.push(newBook);
     fs.writeFile('./data/books.json', JSON.stringify(allBooks), (err) => {
         if (err) {
