@@ -1,6 +1,9 @@
-const http = require('http');
+const express = require('express');
+const app = express();
 
-http.createServer((req, res) => {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Hello world');
-}).listen(3000, () => console.log('Server started on port 3000'));
+app.get('/', (req, res) => {
+    res.status(200);
+    res.send('Hello World!');
+});
+
+app.listen(3000, () => console.log('app listening on port: 3000'));
