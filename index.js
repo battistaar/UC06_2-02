@@ -9,7 +9,7 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 
-app.post('/add', (req, res, next) => {
+app.post('/books', (req, res, next) => {
     const newBook = {
         id: '' + allBooks.length,
         title: req.body.title,
@@ -29,11 +29,11 @@ app.post('/add', (req, res, next) => {
     });
 });
 
-app.get('/add', (req, res) => {
+app.get('/books/add', (req, res) => {
     res.render(path.join(__dirname, 'templates', 'addbook.ejs'));
 });
 
-app.get('/author/:name', (req, res) => {
+app.get('/authors/:name', (req, res) => {
     const author = req.params.name;
     const books = allBooks.filter(b => b.authors.includes(author));
     if (!books.length) {
@@ -43,7 +43,7 @@ app.get('/author/:name', (req, res) => {
     res.render(path.join(__dirname, 'templates', 'main.ejs'), { books: books });
 });
 
-app.get('/book/:id', (req, res) => {
+app.get('/books/:id', (req, res) => {
     const id = req.params.id;
     const book = allBooks.find(b => b.id === id);
     if (!book) {
@@ -54,8 +54,12 @@ app.get('/book/:id', (req, res) => {
     res.render(path.join(__dirname, 'templates', 'detail.ejs'), { book: book });
 });
 
-app.get('/', (req, res) => {
+app.get('/books', (req, res) => {
     res.render(path.join(__dirname, 'templates', 'main.ejs'), { books: allBooks });
 });
+
+app.get('/', (req, res) => {
+    res.redirect('/books');
+})
 
 app.listen(3000, () => console.log('app listening on port: 3000'));
